@@ -17,8 +17,8 @@
       "response": "Returns challenge_id, expires_at, and a prompt containing a random seed, SHA-256 algorithm, required prefix, and instructions."
     },
     "solve": {
-      "algorithm": "SHA-256 over UTF-8 bytes of seed + ':' + decimal nonce; find a lowercase hex digest starting with '0000'.",
-      "averageAttempts": 65536,
+      "algorithm": "SHA-256 over UTF-8 bytes of seed + ':' + decimal nonce; find a lowercase hex digest starting with '00000'.",
+      "averageAttempts": 1048576,
       "nonceFormat": "Non-negative decimal integer."
     },
     "verify": {
