@@ -1,0 +1,46 @@
+{
+  "name": "AI CAPTCHA Machine Gateway",
+  "protocol": "AI-CAPTCHA/1",
+  "purpose": "Experimental machine-readable challenge protocol that gates access to a server-side JSON archive.",
+  "endpoint": "https://eopvkwhcgznvubesaszv.supabase.co/functions/v1/ai-captcha-gateway",
+  "transport": "HTTPS POST with application/json",
+  "actions": {
+    "challenge": {
+      "request": {
+        "action": "challenge"
+      },
+      "response": "Returns challenge_id, server-generated arithmetic task, response format and expiry."
+    },
+    "verify": {
+      "request": {
+        "action": "verify",
+        "challenge_id": "<id>",
+        "answer": {
+          "answer": 1234
+        }
+      },
+      "response": "On success returns a short-lived bearer access_token. The numeric answer is illustrative; calculate the actual challenge."
+    },
+    "site": {
+      "request": {
+        "action": "site"
+      },
+      "headers": {
+        "Authorization": "Bearer <access_token>"
+      },
+      "response": "Returns the machine archive JSON. Access token is single-use and short-lived."
+    }
+  },
+  "limits": {
+    "challengeTtlSeconds": 180,
+    "tokenTtlSeconds": 600,
+    "maxAttemptsPerChallenge": 3,
+    "tokenUses": 1
+  },
+  "responseContentType": "application/json",
+  "security": {
+    "note": "Challenge completion does not prove that the caller is an AI. Humans and scripts can solve it too.",
+    "noSecretsInThisDocument": true,
+    "archiveContentServedByBackend": true
+  }
+}
