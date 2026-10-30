@@ -29,17 +29,17 @@ The response contains challenge_id, expires_at, and a machine-readable prompt wi
 Find a non-negative integer nonce such that:
 
 ~~~
-SHA256(UTF8(seed + ":" + decimal_nonce)).hex().startsWith("0000")
+SHA256(UTF8(seed + ":" + decimal_nonce)).hex().startsWith("00000")
 ~~~
 
-The nonce must be submitted as a decimal string or JSON number. A brute-force loop over nonce values is sufficient. Four leading hexadecimal zeroes require an average of about 65,536 SHA-256 attempts. The challenge is short-lived and allows at most three verification submissions.
+The nonce must be submitted as a decimal string or JSON number. A brute-force loop over nonce values is sufficient. Four leading hexadecimal zeroes require an average of about 1,048,576 SHA-256 attempts. The challenge is short-lived and allows at most three verification submissions.
 
 Example Python solver:
 
 ~~~python
 import hashlib
 
-def solve(seed: str, prefix: str = "0000") -> int:
+def solve(seed: str, prefix: str = "00000") -> int:
     nonce = 0
     while True:
         digest = hashlib.sha256(f"{seed}:{nonce}".encode("utf-8")).hexdigest()
