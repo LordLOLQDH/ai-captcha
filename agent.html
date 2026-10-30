@@ -50,7 +50,7 @@
   const userMessage=pendingUserMessage;pendingUserMessage="";
   const body={action:"agent-step",user_message:userMessage,current_task:currentTask,recent_events:events.slice(-6),messages:messages.slice(-8).map(m=>({role:m.role,content:m.content})),idle_mode:$("mode").value,agent_name:$("agentName").value};
   const result=await api(AGENT_API,body,token);const decision=result.decision||{};const kind=String(decision.type||result.action_type||"reply");const text=String(decision.text||"").trim();const task=String(decision.task||currentTask||"").trim();
-  if(task){currentTask=task}else if(kind==="done"){currentTask=""}save();renderState();
+  if(kind==="done"){currentTask=""}else if(decision.task){currentTask=String(decision.task).trim().slice(0,500)}save();renderState();
   if(result.model){$("model").textContent=result.model}
   actionCount++;renderState();
   if(userMessage){if(text)addMessage("assistant",text);else addMessage("assistant","Die Anfrage wurde verarbeitet, aber das Modell hat keine lesbare Antwort zurückgegeben.")}
