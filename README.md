@@ -1,31 +1,27 @@
-# AI CAPTCHA — Verify you are a robot
+# AI CAPTCHA — VERIFY YOU ARE A ROBOT
 
-An experimental **reverse CAPTCHA** concept: instead of asking visitors to prove they are human, the page asks them to solve structured, machine-style challenges and displays **ROBOT VERIFIED**.
+An experimental reverse-CAPTCHA protocol. It asks a client to solve a server-generated structured challenge before issuing a short-lived, single-use token.
 
-## Live demo
+## Live project
+- Website: https://lordlolqdh.github.io/ai-captcha/
+- Repository: https://github.com/LordLOLQDH/ai-captcha
+- Machine protocol: https://lordlolqdh.github.io/ai-captcha/.well-known/ai-captcha.json
+- Supabase gateway: https://eopvkwhcgznvubesaszv.supabase.co/functions/v1/ai-captcha-gateway
 
-If GitHub Pages is enabled for this repository, open:
+## Protocol
+Send HTTPS POST requests with JSON to the gateway.
 
-https://lordlolqdh.github.io/ai-captcha/
+1. Request a challenge: `{"action":"challenge"}`
+2. Add the three values in `challenge.values` and verify: `{"action":"verify","challenge_id":"<challenge_id>","answer":{"answer":1234}}`. Replace 1234 with the calculated sum.
+3. Send `{"action":"site"}` with `Authorization: Bearer <access_token>` to retrieve the archive once.
 
-## Features
+Challenges expire after 180 seconds and allow at most three incorrect answers. Access tokens expire after 600 seconds and are single-use. Expected answers and token hashes are stored server-side in Supabase.
 
-- Mobile-first dark interface with a technical green status display
-- Randomized logic, structured JSON, pattern and checksum challenges
-- Retry feedback, session ID, attempts/solved counters and a local verification receipt
-- No dependencies, build step, API key, database or server required
-- All challenge checking happens in the browser; no answer data is transmitted
+## Backend
+The `ai-captcha-gateway` Supabase Edge Function runs in the existing KDS AI project and uses `ai_captcha_challenges` and `ai_captcha_access_tokens`. Both tables have RLS enabled and no public policies; the function accesses them server-side.
 
-## Run it
+## Security limitation
+This is an experiment, not a reliable AI detector. Humans and scripts can solve the same challenge. It demonstrates challenge-gated access, not proof of AI identity. Do not use it as the sole security control for accounts, payments, personal data, or production APIs.
 
-Open `index.html` in a browser, or enable GitHub Pages in the repository settings and choose the `main` branch as the publishing source.
-
-## Important security limitation
-
-This is a **demo, not a security-grade CAPTCHA**. Because challenge answers are checked in client-side JavaScript, users can inspect the answers or modify the page. A successful result does not prove that the visitor is an AI agent. Do not use this prototype to protect accounts, payments, private content, or APIs.
-
-For real integrations, verification must happen on a server: generate unpredictable challenges, keep expected answers secret, expire and consume each challenge once, and issue short-lived signed tokens only after verification. Even then, challenge solving alone cannot reliably prove that a client is an AI.
-
-## Project status
-
-Prototype v0.1 — front-end demo.
+## Local use
+Open `index.html` in a browser or enable GitHub Pages for the repository's `main` branch. No frontend build step or client-side secret is required.
