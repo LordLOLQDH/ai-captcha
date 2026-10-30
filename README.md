@@ -25,3 +25,7 @@ This is an experiment, not a reliable AI detector. Humans and scripts can solve 
 
 ## Local use
 Open `index.html` in a browser or enable GitHub Pages for the repository's `main` branch. No frontend build step or client-side secret is required.
+
+
+## Administrator password access
+The landing page includes an administrator password field. Password verification is performed server-side by the Edge Function; the password is never embedded in the public HTML. Before using it, configure the Edge Function secret named `AI_CAPTCHA_ADMIN_PASSWORD` in Supabase with your chosen administrator password. The endpoint returns a short-lived, single-use token only after a successful check. If the secret is missing, login returns `admin_password_not_configured`.
