@@ -29,6 +29,13 @@
         "Authorization": "Bearer <access_token>"
       },
       "response": "Returns the machine archive JSON. Access token is single-use and short-lived."
+    },
+    "admin-login": {
+      "request": {
+        "action": "admin-login",
+        "password": "<admin password>"
+      },
+      "response": "Checks the administrator password server-side and returns a short-lived one-use access token on success."
     }
   },
   "limits": {
@@ -45,5 +52,10 @@
   },
   "prompt_phrase": "VERIFY YOU ARE A ROBOT",
   "website": "https://lordlolqdh.github.io/ai-captcha/",
-  "backend_status": "deployed"
+  "backend_status": "deployed",
+  "admin_password_configuration": {
+    "required_secret_name": "AI_CAPTCHA_ADMIN_PASSWORD",
+    "location": "Supabase project secrets for Edge Functions",
+    "note": "The password is not embedded in the public website."
+  }
 }
