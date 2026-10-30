@@ -1,40 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="index,follow">
-<meta name="theme-color" content="#080b0a">
-<title>AI Machine Gateway</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="index,follow"><meta name="theme-color" content="#080b0a"><meta name="description" content="AI CAPTCHA experimental machine-readable challenge gateway. VERIFY YOU ARE A ROBOT.">
+<title>AI CAPTCHA — Verify You Are a Robot</title>
 <style>
-:root{color-scheme:dark;--bg:#080b0a;--panel:#101613;--line:#26352d;--text:#edf7f0;--muted:#91a49a;--green:#78ffad;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#163323 0,transparent 55%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{width:min(760px,100%);margin:auto;padding:28px 18px}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:18px;gap:12px}.brand{font:700 14px var(--mono);letter-spacing:.13em}.brand span,.green{color:var(--green)}.tag{font:11px var(--mono);color:var(--green);border:1px solid #31563f;padding:5px 8px;border-radius:4px}.hero{padding:58px 0 32px}.eyebrow{font:12px var(--mono);color:var(--green);letter-spacing:.15em;text-transform:uppercase}.hero h1{font-size:clamp(36px,8vw,62px);line-height:1.02;letter-spacing:-.05em;margin:14px 0}.hero p{max-width:600px;color:var(--muted)}.panel{border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:hidden}.panelhead{padding:13px 16px;border-bottom:1px solid var(--line);font:11px var(--mono);color:var(--muted)}.body{padding:20px}.code{white-space:pre-wrap;overflow-wrap:anywhere;background:#080d09;border:1px solid #23372a;border-radius:7px;padding:14px;font:12px/1.7 var(--mono);color:#b5f5c9}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.dot{width:8px;height:8px;background:var(--green);display:inline-block;border-radius:50%;margin-right:7px}.note{font-size:12px;color:var(--muted);border-left:2px solid #3e5b48;padding-left:12px;margin-top:25px}a{color:var(--green)}footer{border-top:1px solid var(--line);margin-top:28px;padding-top:15px;color:#71847a;font:11px var(--mono)}
-</style>
-</head>
-<body>
-<main class="wrap">
-<header class="top"><div class="brand"><span>●</span> AI MACHINE GATEWAY</div><div class="tag">PROTOCOL 1.0</div></header>
-<section class="hero">
-<div class="eyebrow">Machine-readable access node</div>
-<h1>NO HUMAN<br><span class="green">DASHBOARD.</span></h1>
-<p>This host publishes a machine-readable protocol. Protected archive content is not embedded in this page. Compatible clients must request a server-issued challenge, submit the answer, then exchange the short-lived access token for the archive response.</p>
-</section>
-<section class="panel">
-<div class="panelhead"><span class="dot"></span>PUBLIC PROTOCOL / PRIVATE RESPONSE</div>
-<div class="body">
-<p>Protocol discovery:</p>
-<div class="code">/.well-known/ai-captcha.json</div>
-<p>Gateway endpoint:</p>
-<div class="code">https://eopvkwhcgznvubesaszv.supabase.co/functions/v1/ai-captcha-gateway</div>
-<p>Supported actions:</p>
-<div class="code">POST { "action": "challenge" }
-POST { "action": "verify", "challenge_id": "...", "answer": {"answer": 1234} }
-POST { "action": "site" }  // Authorization: Bearer &lt;short-lived token&gt;</div>
-<div class="row"><span class="green">● API STATUS: DEPLOYED</span><span>·</span><a href="./.well-known/ai-captcha.json">Read machine protocol ↗</a></div>
-</div>
-</section>
-<p class="note">Security note: this is an experiment in machine-readable access, not a reliable AI detector. A human or script can solve the same challenge. The private response is server-side and requires a short-lived token, but the protocol itself is public.</p>
-<footer>AI-CAPTCHA / MACHINE GATEWAY / EXPERIMENTAL</footer>
-</main>
-</body>
-</html>
+:root{color-scheme:dark;--bg:#080b0a;--panel:#101613;--line:#26352d;--text:#edf7f0;--muted:#91a49a;--green:#78ffad;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#163323 0,transparent 55%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{width:min(760px,100%);margin:auto;padding:28px 18px}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:18px;gap:12px}.brand{font:700 14px var(--mono);letter-spacing:.13em}.brand span,.green{color:var(--green)}.tag{font:11px var(--mono);color:var(--green);border:1px solid #31563f;padding:5px 8px;border-radius:4px}.hero{padding:58px 0 32px}.eyebrow{font:12px var(--mono);color:var(--green);letter-spacing:.15em;text-transform:uppercase}.hero h1{font-size:clamp(36px,8vw,62px);line-height:1.02;letter-spacing:-.05em;margin:14px 0}.hero p{max-width:600px;color:var(--muted)}.panel{border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:hidden}.panelhead{padding:13px 16px;border-bottom:1px solid var(--line);font:11px var(--mono);color:var(--muted)}.body{padding:20px}.code{white-space:pre-wrap;overflow-wrap:anywhere;background:#080d09;border:1px solid #23372a;border-radius:7px;padding:14px;font:12px/1.7 var(--mono);color:#b5f5c9}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.dot{width:8px;height:8px;background:var(--green);display:inline-block;border-radius:50%;margin-right:7px}.note{font-size:12px;color:var(--muted);border-left:2px solid #3e5b48;padding-left:12px;margin-top:25px}a{color:var(--green)}footer{border-top:1px solid var(--line);margin-top:28px;padding-top:15px;color:#71847a;font:11px var(--mono)}
+</style></head>
+<body><main class="wrap"><header class="top"><div class="brand"><span>●</span> AI CAPTCHA</div><div class="tag">PROTOCOL 1.0</div></header>
+<section class="hero"><div class="eyebrow">Experimental machine access protocol</div><h1>VERIFY YOU<br><span class="green">ARE A ROBOT.</span></h1><p>This project reverses the familiar CAPTCHA idea. A compatible client requests a server-generated challenge, computes the answer, and receives a short-lived token to access a structured machine-readable archive.</p></section>
+<section class="panel"><div class="panelhead"><span class="dot"></span>SERVER-SIDE CHALLENGE / TOKEN-GATED ARCHIVE</div><div class="body"><p>Machine protocol discovery:</p><div class="code">/.well-known/ai-captcha.json</div><p>Supabase gateway endpoint:</p><div class="code">https://eopvkwhcgznvubesaszv.supabase.co/functions/v1/ai-captcha-gateway</div><p>Request sequence:</p><div class="code">POST {"action":"challenge"}
+POST {"action":"verify","challenge_id":"...","answer":{"answer":1234}}
+POST {"action":"site"} // Authorization: Bearer &lt;access_token&gt;</div><p>Limits:</p><div class="code">Challenge expiry: 180 seconds
+Maximum attempts: 3
+Access token expiry: 600 seconds
+Token uses: 1</div><div class="row"><span class="green">● GATEWAY DEPLOYED</span><span>·</span><a href="./.well-known/ai-captcha.json">Read machine protocol ↗</a><span>·</span><a href="https://github.com/LordLOLQDH/ai-captcha">Source repository ↗</a></div></div></section>
+<p class="note">Security limitation: a solved challenge does not prove that a caller is an AI. Humans and scripts can solve it too. This prototype demonstrates server-side challenge gating, not guaranteed AI-only access.</p><footer>AI-CAPTCHA / MACHINE GATEWAY / EXPERIMENTAL</footer></main></body></html>
