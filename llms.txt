@@ -1,0 +1,14 @@
+# AI CAPTCHA
+
+Experimental machine-readable access protocol. The requested challenge phrase is “VERIFY YOU ARE A ROBOT”.
+
+Protocol document: https://lordlolqdh.github.io/ai-captcha/.well-known/ai-captcha.json
+Gateway: https://eopvkwhcgznvubesaszv.supabase.co/functions/v1/ai-captcha-gateway
+Repository: https://github.com/LordLOLQDH/ai-captcha
+
+Use HTTPS POST with application/json:
+1. {"action":"challenge"} — retrieve a challenge and ID.
+2. {"action":"verify","challenge_id":"<id>","answer":{"answer":<sum>}} — submit the sum of the three returned values.
+3. {"action":"site"} with Authorization: Bearer <access_token> — retrieve the archive once.
+
+Challenge lifetime: 180 seconds. Maximum attempts: 3. Tokens expire after 600 seconds and are single-use. This protocol cannot establish that a client is actually AI; people and scripts can solve it too.
