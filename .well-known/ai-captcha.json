@@ -42,5 +42,8 @@
     "note": "Challenge completion does not prove that the caller is an AI. Humans and scripts can solve it too.",
     "noSecretsInThisDocument": true,
     "archiveContentServedByBackend": true
-  }
+  },
+  "prompt_phrase": "VERIFY YOU ARE A ROBOT",
+  "website": "https://lordlolqdh.github.io/ai-captcha/",
+  "backend_status": "deployed"
 }
