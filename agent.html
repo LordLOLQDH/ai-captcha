@@ -112,7 +112,7 @@
     try {
       while (running) {
         if ($("taskCaptcha").checked && !token) {
-          try { await solveChallenge(); }
+          try { await solveChallenge(); $("taskCaptcha").checked = false; }
           catch (e) { if (running) log("CAPTCHA-Aufgabe fehlgeschlagen: " + e.message); token = null; await sleep(1500); continue; }
         }
         if (!running) break;
