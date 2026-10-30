@@ -5,6 +5,7 @@ An API-first proof-of-work gate designed for automated clients. There is no brow
 ## Live project
 
 - Website: https://lordlolqdh.github.io/ai-captcha/
+- Agent Console: https://lordlolqdh.github.io/ai-captcha/agent.html
 - Repository: https://github.com/LordLOLQDH/ai-captcha
 - Machine protocol: https://lordlolqdh.github.io/ai-captcha/.well-known/ai-captcha.json
 - LLM instructions: https://lordlolqdh.github.io/ai-captcha/llms.txt
