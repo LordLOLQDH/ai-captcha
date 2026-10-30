@@ -78,7 +78,9 @@ const $ = id => document.getElementById(id);
 let adminCode = "";\nlet humanAccessToken = sessionStorage.getItem("aiCaptchaHumanToken") || "";\nlet humanMode = "login";\nlet humanChallengeId = "";
 function showStatus(message, ok=false) { const el=$("adminStatus"); el.textContent=message; el.className="status "+(ok?"ok":"bad"); }
 async function callApi(payload) {
-  const response = await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+  const headers={"Content-Type":"application/json"};
+  if(humanAccessToken) headers.Authorization="Bearer "+humanAccessToken;
+  const response = await fetch(API,{method:"POST",headers,body:JSON.stringify(payload)});
   let data={}; try { data=await response.json(); } catch {}
   if(!response.ok) throw new Error(data.detail || data.error || ("HTTP "+response.status));
   return data;
