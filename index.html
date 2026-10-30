@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b0a">
+<meta name="description" content="AI CAPTCHA — ein experimentelles Reverse-CAPTCHA, das künstliche Agenten statt Menschen anspricht.">
+<title>AI CAPTCHA — Verify you are a robot</title>
+<style>
+:root{color-scheme:dark;--bg:#080b0a;--panel:#101613;--line:#26352d;--text:#edf7f0;--muted:#91a49a;--green:#78ffad;--red:#ff7777;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#163323 0,transparent 55%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+.wrap{width:min(760px,100%);margin:auto;padding:28px 18px 42px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:18px}.brand{font:700 15px var(--mono);letter-spacing:.13em}.brand span{color:var(--green)}.tag{font:11px var(--mono);color:var(--green);border:1px solid #31563f;padding:5px 8px;border-radius:4px}
+.hero{padding:46px 0 28px}.eyebrow{font:12px var(--mono);color:var(--green);letter-spacing:.16em;text-transform:uppercase}.hero h1{font-size:clamp(36px,9vw,66px);line-height:1.02;letter-spacing:-.055em;margin:13px 0 18px}.hero h1 em{font-style:normal;color:var(--green)}.hero p{color:var(--muted);max-width:570px;margin:0;font-size:16px}
+.panel{border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,#111a14,#0d110f);overflow:hidden}.panelhead{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid var(--line);font:12px var(--mono);color:var(--muted);gap:12px}.live{color:var(--green)}.content{padding:22px 20px}.step{font:11px var(--mono);color:var(--muted);letter-spacing:.12em;text-transform:uppercase}.challenge-title{font-size:23px;font-weight:650;margin:8px 0}.prompt{color:#c7d5cc;margin:0 0 20px}.code{font:13px/1.7 var(--mono);background:#080d09;border:1px solid #23372a;padding:14px;border-radius:7px;white-space:pre-wrap;overflow-wrap:anywhere;color:#b5f5c9;margin:0 0 18px}
+label{display:block;font-size:13px;color:#b9c9bf;margin:0 0 7px}input{width:100%;min-height:49px;border:1px solid #35483b;border-radius:7px;background:#080d09;color:var(--text);padding:12px 13px;font:15px var(--mono);outline:none}input:focus{border-color:var(--green);box-shadow:0 0 0 3px #78ffad18}button{border:0;border-radius:7px;background:var(--green);color:#07110a;padding:13px 17px;min-height:48px;font-weight:750;font-size:14px;cursor:pointer}button:focus-visible{outline:3px solid white;outline-offset:3px}button:disabled{opacity:.55;cursor:wait}.actions{display:flex;gap:10px;margin-top:12px}.actions button:first-child{flex:1}.secondary{background:transparent;border:1px solid #35483b;color:var(--text)}.message{min-height:28px;margin-top:15px;font:12px/1.6 var(--mono);color:var(--muted)}.message.good{color:var(--green)}.message.bad{color:var(--red)}.verified{display:none;text-align:center;padding:26px 10px}.verified .check{font:48px var(--mono);color:var(--green}.verified h2{font-size:26px;margin:10px 0}.verified p{color:var(--muted);margin:0}.verified .code{display:inline-block;text-align:left;margin:20px auto 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 0}.stat{border:1px solid var(--line);border-radius:8px;padding:12px}.stat strong{display:block;font:17px var(--mono);color:var(--green)}.stat span{font-size:11px;color:var(--muted)}
+.note{border-left:2px solid #3e5b48;padding:3px 0 3px 13px;margin:25px 0;color:var(--muted);font-size:12px}.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px;color:#71847a;font:11px var(--mono)}a{color:var(--green)}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:480px){.wrap{padding:18px 14px 30px}.hero{padding:35px 0 22px}.content{padding:18px 14px}.actions{flex-direction:column}.stats{gap:6px}.stat{padding:9px}.stat strong{font-size:14px}.tag{font-size:10px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top"><div class="brand"><span>●</span> AI CAPTCHA</div><div class="tag">EXPERIMENTAL / 0.1</div></header>
+<section class="hero">
+<div class="eyebrow">Reverse verification protocol</div>
+<h1>VERIFY YOU<br>ARE A <em>ROBOT.</em></h1>
+<p>Die Welt prüft, ob du ein Mensch bist. Wir drehen den Spieß um: Löse eine strukturierte Maschinen-Challenge und fordere deinen Verifizierungsstatus an.</p>
+</section>
+<section class="panel" aria-labelledby="challengeTitle">
+<div class="panelhead"><span>SESSION <span id="sessionId">INITIALIZING</span></span><span class="live" id="status">● SYSTEM READY</span></div>
+<div class="content" id="challengeArea">
+<div class="step" id="stepLabel">CHALLENGE 01 / LOGIC CORE</div>
+<h2 class="challenge-title" id="challengeTitle">Protocol sequence</h2>
+<p class="prompt" id="prompt">Verarbeite die Sequenz und gib das nächste Ergebnis im erwarteten Format zurück.</p>
+<pre class="code" id="payload">[3, 6, 12, 24, ?]</pre>
+<form id="answerForm">
+<label for="answer" id="answerLabel">Maschinenantwort</label>
+<input id="answer" name="answer" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Antwort eingeben" required>
+<div class="actions"><button id="submit" type="submit">RUN VERIFICATION →</button><button class="secondary" id="newChallenge" type="button">NEUE CHALLENGE</button></div>
+</form>
+<div class="message" id="message" role="status" aria-live="polite">Warte auf Eingabe. Keine Daten werden an einen Server gesendet.</div>
+</div>
+<div class="verified" id="verified" aria-live="polite"><div class="check">✓</div><h2>ROBOT VERIFIED</h2><p>Challenge lokal erfolgreich gelöst.</p><pre class="code" id="receipt"></pre><button id="again" type="button">ANOTHER CHALLENGE ↻</button></div>
+</section>
+<div class="stats"><div class="stat"><strong id="attempts">0</strong><span>VERSUCHE</span></div><div class="stat"><strong id="solved">0</strong><span>GELÖST</span></div><div class="stat"><strong>LOCAL</strong><span>VERIFICATION MODE</span></div></div>
+<p class="note"><strong>Hinweis:</strong> Dies ist ein experimenteller Demo-Prototyp. Die Prüfung läuft vollständig im Browser und kann umgangen werden. Sie beweist weder, dass jemand eine KI ist, noch eignet sie sich allein zum Schutz echter Konten oder APIs.</p>
+<footer class="foot"><span>AI-CAPTCHA / OPEN EXPERIMENT</span><span><a href="https://github.com/LordLOLQDH/ai-captcha" target="_blank" rel="noreferrer">SOURCE CODE ↗</a></span></footer>
+</main>
+<script>
+(() => {
+const challenges = [
+{type:"LOGIC CORE",title:"Protocol sequence",prompt:"Erkenne die Regel. Gib die nächste Zahl aus.",payload:"[3, 6, 12, 24, ?]",placeholder:"z. B. 48",answer:"48",hint:"Die Sequenz verdoppelt jeden Wert."},
+{type:"MACHINE PROTOCOL",title:"Structured response",prompt:"Berechne die Summe und antworte exakt als JSON mit dem Schlüssel \"result\".",payload:'INPUT: [12, 7, 24, 3]\nEXPECTED FORMAT: {"result": number}',placeholder:'{"result":46}',answer:'{"result":46}',hint:"12 + 7 + 24 + 3 = 46."},
+{type:"PATTERN ENGINE",title:"Symbol transformation",prompt:"Jedes Symbol wird zweimal ausgegeben. Antworte ohne Leerzeichen.",payload:"INPUT: A → BB\nINPUT: C → DD\nINPUT: F → ?",placeholder:"z. B. GG",answer:"GG",hint:"Ein Buchstabe wird zu zwei Kopien des nächsten Buchstabens."},
+{type:"CHECKSUM",title:"Checksum calculation",prompt:"Berechne den einfachen Checksum-Wert: alle Zahlen addieren, dann modulo 10.",payload:"DATA: [18, 5, 12]\nCHECKSUM = SUM(DATA) mod 10",placeholder:"0–9",answer:"5",hint:"18 + 5 + 12 = 35; 35 modulo 10 ist 5."},
+{type:"LOGIC CORE",title:"Sequence prediction",prompt:"Finde die Regel und gib den fehlenden Wert an.",payload:"[2, 5, 10, 17, 26, ?]",placeholder:"Nächste Zahl",answer:"37",hint:"Die Differenzen sind 3, 5, 7, 9, danach 11."}
+];
+let current=0,attempts=0,solved=0;
+const $=id=>document.getElementById(id);
+function normalize(s){return s.trim().replace(/\s+/g,"").toLowerCase()}
+function loadChallenge(index){
+ current=index%challenges.length;const c=challenges[current];
+ $("challengeArea").style.display="block";$("verified").style.display="none";
+ $("stepLabel").textContent="CHALLENGE "+String(current+1).padStart(2,"0")+" / "+c.type;
+ $("challengeTitle").textContent=c.title;$("prompt").textContent=c.prompt;$("payload").textContent=c.payload;
+ $("answer").value="";$("answer").placeholder=c.placeholder;$("message").className="message";
+ $("message").textContent="Warte auf Eingabe. Keine Daten werden an einen Server gesendet.";
+ $("status").textContent="● SYSTEM READY";$("answer").focus({preventScroll:true});
+}
+function next(){loadChallenge(Math.floor(Math.random()*challenges.length))}
+$("sessionId").textContent=Math.random().toString(36).slice(2,8).toUpperCase();
+$("answerForm").addEventListener("submit",e=>{
+ e.preventDefault();const c=challenges[current];const value=$("answer").value;
+ attempts++;$("attempts").textContent=attempts;
+ let correct=false;
+ if(current===1){try{const parsed=JSON.parse(value);correct=parsed.result===46&&Object.keys(parsed).length===1}catch{}}
+ else correct=normalize(value)===normalize(c.answer);
+ if(correct){
+  solved++;$("solved").textContent=solved;$("status").textContent="● VERIFIED";$("challengeArea").style.display="none";$("verified").style.display="block";
+  $("receipt").textContent=JSON.stringify({status:"ROBOT_VERIFIED",challenge:c.type,session:$("sessionId").textContent,verifiedAt:new Date().toISOString(),mode:"client_demo"},null,2);
+ }else{$("message").className="message bad";$("message").textContent="REJECTED — Antwort nicht korrekt. "+c.hint;$("status").textContent="● RETRY REQUIRED"}
+});
+$("newChallenge").addEventListener("click",next);$("again").addEventListener("click",next);
+loadChallenge(Math.floor(Math.random()*challenges.length));
+})();
+</script>
+</body>
+</html>
