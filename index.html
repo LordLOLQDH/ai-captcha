@@ -75,7 +75,10 @@
 <script>
 const API = "https://eopvkwhcgznvubesaszv.supabase.co/functions/v1/ai-captcha-gateway";
 const $ = id => document.getElementById(id);
-let adminCode = "";\nlet humanAccessToken = sessionStorage.getItem("aiCaptchaHumanToken") || "";\nlet humanMode = "login";\nlet humanChallengeId = "";
+let adminCode = "";
+let humanAccessToken = sessionStorage.getItem("aiCaptchaHumanToken") || "";
+let humanMode = "login";
+let humanChallengeId = "";
 function showStatus(message, ok=false) { const el=$("adminStatus"); el.textContent=message; el.className="status "+(ok?"ok":"bad"); }
 async function callApi(payload) {
   const headers={"Content-Type":"application/json"};
